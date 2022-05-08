@@ -1,0 +1,46 @@
+{%extends 'template.html.twig'%}
+{% block body%}
+    {% set i=random(1,500) %}
+    <a href="{{ path('etudiant.add',{id: i}) }}"><h5>Ajouter un étudiant</h5></a>
+    <table id="tab" class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Prenom</th>
+            <th scope="col">Section</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+    {% for etudiant in etudiants%}
+        <tr class="table-{% if loop.index is odd %}secondary{% else %}light{% endif %}">
+            <td id="n" class="default">{{etudiant.nom}}</td>
+            <td id="p" class="default">{{etudiant.prenom}}</td>
+            {% if etudiant.designationEtudiant is null%}
+                <td id="s" class="default">Etudiant non encore affecté à une section</td>
+                {% set lasection='Etudiant non encore affecté à une section' %}
+            {%else%}
+                <td id="s" class="default">{{etudiant.designationEtudiant.designation}}</td>
+                {% set lasection=etudiant.designationEtudiant.designation %}
+            {%endif%}
+            <td id="a" class="default"><a href="{{path('etudiant.edit',{id: etudiant.id})}}">Edit</a>
+                <a href="{{path('etudiant.delete',{id: etudiant.id})}}">Delete</a></td>
+        </tr>
+        {%endfor%}
+        </tbody>
+    </table>
+{%endblock%}
+{%block title%}
+Liste des etudiants{%endblock%}
+{%block navTitle%}
+Liste des étudiants
+{%endblock%}
+{% block myOwnScript %}
+    <script>
+        document.querySelector('#tab').addEventListener('click', function(event) {
+            if (event.target.tagName.toLowerCase() === 'td') {
+                    event.target.classList.toggle("table-danger");
+            }
+        });
+    </script>
+{% endblock %}

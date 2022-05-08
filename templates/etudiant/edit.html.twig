@@ -1,0 +1,23 @@
+{% extends 'template.html.twig' %}
+{% block title %}
+    Modification des etudiants
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {{form_start(etudForm)}}
+        {{form_row(etudForm.nom)}}
+        <br><hr>
+        {{form_row(etudForm.prenom)}}
+        <br><hr>
+        {{form_row(etudForm.designationEtudiant)}}
+        <br><hr>
+        <br><br>
+        {{form_row(etudForm.children['Modifier'])}}
+    </div>
+{% endblock %}
+{% block themebootswatch %}
+    {{asset('node_modules/bootswatch/dist/lux/bootstrap.css')}}
+{% endblock %}
+{% block navTitle%}
+    Modifier des étudiants{%endblock%}
